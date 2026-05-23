@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Приглашение для Ани ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Для Ани ❤️</title>
 
   <style>
     *{
@@ -14,228 +14,170 @@
     }
 
     body{
-      overflow:hidden;
-      background: linear-gradient(135deg,#ff9ecf,#ffd6ec,#ffe9f5);
       height:100vh;
-      color:white;
-    }
-
-    .screen{
-      position:absolute;
-      inset:0;
       display:flex;
-      flex-direction:column;
       justify-content:center;
       align-items:center;
-      text-align:center;
-      padding:20px;
-      transition:0.6s;
+      background: linear-gradient(135deg, #ff9ecf, #ffd6ea);
+      overflow:hidden;
     }
 
-    .hidden{
-      opacity:0;
-      pointer-events:none;
-      transform:scale(1.1);
+    .card{
+      background:white;
+      padding:40px;
+      border-radius:25px;
+      text-align:center;
+      width:90%;
+      max-width:500px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.15);
+      animation:fade 0.6s ease;
     }
 
     h1{
-      font-size: clamp(32px,5vw,64px);
+      font-size:32px;
       margin-bottom:20px;
-      text-shadow:0 4px 10px rgba(0,0,0,0.2);
+      color:#ff4f9a;
     }
 
     p{
-      font-size: clamp(18px,2vw,26px);
-      max-width:700px;
-      line-height:1.5;
+      font-size:20px;
+      color:#444;
       margin-bottom:30px;
-      text-shadow:0 2px 8px rgba(0,0,0,0.2);
+      line-height:1.5;
+    }
+
+    .buttons{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
     }
 
     button{
+      padding:14px 28px;
       border:none;
-      padding:16px 28px;
-      border-radius:999px;
-      font-size:20px;
+      border-radius:15px;
       cursor:pointer;
+      font-size:18px;
       transition:0.25s;
-      margin:10px;
-    }
-
-    .main-btn{
-      background:white;
-      color:#ff4f9a;
-      font-weight:bold;
-      box-shadow:0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    .main-btn:hover{
-      transform:scale(1.08);
-    }
-
-    .yes-btn{
-      background:#ff4f9a;
       color:white;
-      font-weight:bold;
     }
 
-    .no-btn{
-      background:white;
-      color:#555;
-      position:relative;
+    .pink{
+      background:#ff4f9a;
+    }
+
+    .pink:hover{
+      transform:scale(1.08);
+      background:#ff2e85;
+    }
+
+    .gray{
+      background:#888;
+    }
+
+    .gray:hover{
+      transform:scale(1.08);
+      background:#666;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
     }
 
     .heart{
       position:absolute;
       color:white;
-      font-size:24px;
-      animation:floatUp linear forwards;
-      pointer-events:none;
+      font-size:20px;
+      animation:float 6s linear infinite;
+      opacity:0.7;
     }
 
-    @keyframes floatUp{
+    @keyframes float{
       from{
-        transform:translateY(0) scale(1);
-        opacity:1;
+        transform:translateY(100vh);
       }
       to{
-        transform:translateY(-800px) scale(1.8);
-        opacity:0;
+        transform:translateY(-10vh);
       }
-    }
-
-    .final{
-      font-size: clamp(36px,6vw,80px);
-      animation:pulse 1.5s infinite;
-    }
-
-    @keyframes pulse{
-      0%{transform:scale(1);}
-      50%{transform:scale(1.06);}
-      100%{transform:scale(1);}
-    }
-
-    .date{
-      margin-top:15px;
-      font-size:24px;
-      opacity:0.95;
     }
   </style>
 </head>
 <body>
 
-  <!-- Экран 1 -->
-  <section class="screen" id="screen1">
-    <h1>Аня ❤️</h1>
-    <p>
-      У меня есть для тебя одно очень важное приглашение...
-    </p>
+<div class="card" id="card">
+  <h1>Аня ❤️</h1>
+  <p>Я хочу тебе кое-что сказать...</p>
 
-    <button class="main-btn" onclick="nextScreen(2)">
-      Открыть ✨
-    </button>
-  </section>
+  <div class="buttons">
+    <button class="pink" onclick="nextStep()">Что? 👀</button>
+  </div>
+</div>
 
-  <!-- Экран 2 -->
-  <section class="screen hidden" id="screen2">
-    <h1>Признание 😌</h1>
+<script>
+  function nextStep(){
+    document.getElementById("card").innerHTML = `
+      <h1>✨</h1>
+      <p>
+        Я приглашаю тебя погулять.<br>
+        Только ты и я ❤️
+      </p>
 
-    <p>
-      Есть один человек,<br>
-      с которым я очень хочу провести вечер.
-    </p>
+      <div class="buttons">
+        <button class="pink" onclick="yesAnswer()">Да 💕</button>
+        <button class="gray" onclick="noAnswer()">Нет 🙄</button>
+      </div>
+    `;
+  }
 
-    <button class="main-btn" onclick="nextScreen(3)">
-      Кто это? 👀
-    </button>
-  </section>
+  function yesAnswer(){
+    document.getElementById("card").innerHTML = `
+      <h1>Урааа ❤️</h1>
+      <p>
+        Тогда жду тебя 25.06.26 ✨<br><br>
+        Это будет лучший день :)
+      </p>
+    `;
+  }
 
-  <!-- Экран 3 -->
-  <section class="screen hidden" id="screen3">
-    <h1>Кажется, это ты 🫶</h1>
+  function noAnswer(){
+    const messages = [
+      "Не принимается 😭",
+      "Подумай еще раз 🥲",
+      "Кнопка сломана 🙄",
+      "Ну пожалуйста 😔",
+      "Я все равно надеюсь ❤️"
+    ];
 
-    <p>
-      Поэтому у меня вопрос:<br><br>
-      Пойдёшь со мной гулять?
-    </p>
+    const random = messages[Math.floor(Math.random() * messages.length)];
 
-    <div>
-      <button class="yes-btn" onclick="accept()">
-        Да ❤️
-      </button>
+    document.getElementById("card").innerHTML = `
+      <h1>😢</h1>
+      <p>${random}</p>
 
-      <button class="no-btn" id="noBtn">
-        Нет
-      </button>
-    </div>
+      <div class="buttons">
+        <button class="pink" onclick="nextStep()">Вернуться</button>
+      </div>
+    `;
+  }
 
-    <div class="date">
-      25.06.26
-    </div>
-  </section>
-
-  <!-- Финал -->
-  <section class="screen hidden" id="screen4">
-    <div class="final">
-      УРААА ❤️
-    </div>
-
-    <p style="margin-top:25px">
-      Тогда 25.06.26 — официально<br>
-      день нашего гуляния ✨
-    </p>
-  </section>
-
-  <script>
-    function nextScreen(number){
-      document.querySelectorAll('.screen').forEach(s=>{
-        s.classList.add('hidden');
-      });
-
-      document.getElementById('screen'+number)
-        .classList.remove('hidden');
-    }
-
-    // Убегающая кнопка
-    const noBtn = document.getElementById('noBtn');
-
-    noBtn.addEventListener('mouseover', () => {
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 60);
-
-      noBtn.style.position = 'absolute';
-      noBtn.style.left = x + 'px';
-      noBtn.style.top = y + 'px';
-    });
-
-    // Финал + сердечки
-    function accept(){
-      nextScreen(4);
-
-      for(let i=0;i<80;i++){
-        createHeart();
-      }
-    }
-
-    function createHeart(){
-      const heart = document.createElement('div');
-
-      heart.classList.add('heart');
-      heart.innerHTML = '❤️';
-
-      heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.top = window.innerHeight + 'px';
-
-      heart.style.animationDuration =
-        (Math.random()*3 + 2) + 's';
-
-      document.body.appendChild(heart);
-
-      setTimeout(()=>{
-        heart.remove();
-      },5000);
-    }
-  </script>
+  for(let i = 0; i < 20; i++){
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+  }
+</script>
 
 </body>
 </html>
