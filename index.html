@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Приглашение для Ани ❤️</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      overflow:hidden;
+      background: linear-gradient(135deg,#ff9ecf,#ffd6ec,#ffe9f5);
+      height:100vh;
+      color:white;
+    }
+
+    .screen{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+      transition:0.6s;
+    }
+
+    .hidden{
+      opacity:0;
+      pointer-events:none;
+      transform:scale(1.1);
+    }
+
+    h1{
+      font-size: clamp(32px,5vw,64px);
+      margin-bottom:20px;
+      text-shadow:0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    p{
+      font-size: clamp(18px,2vw,26px);
+      max-width:700px;
+      line-height:1.5;
+      margin-bottom:30px;
+      text-shadow:0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    button{
+      border:none;
+      padding:16px 28px;
+      border-radius:999px;
+      font-size:20px;
+      cursor:pointer;
+      transition:0.25s;
+      margin:10px;
+    }
+
+    .main-btn{
+      background:white;
+      color:#ff4f9a;
+      font-weight:bold;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .main-btn:hover{
+      transform:scale(1.08);
+    }
+
+    .yes-btn{
+      background:#ff4f9a;
+      color:white;
+      font-weight:bold;
+    }
+
+    .no-btn{
+      background:white;
+      color:#555;
+      position:relative;
+    }
+
+    .heart{
+      position:absolute;
+      color:white;
+      font-size:24px;
+      animation:floatUp linear forwards;
+      pointer-events:none;
+    }
+
+    @keyframes floatUp{
+      from{
+        transform:translateY(0) scale(1);
+        opacity:1;
+      }
+      to{
+        transform:translateY(-800px) scale(1.8);
+        opacity:0;
+      }
+    }
+
+    .final{
+      font-size: clamp(36px,6vw,80px);
+      animation:pulse 1.5s infinite;
+    }
+
+    @keyframes pulse{
+      0%{transform:scale(1);}
+      50%{transform:scale(1.06);}
+      100%{transform:scale(1);}
+    }
+
+    .date{
+      margin-top:15px;
+      font-size:24px;
+      opacity:0.95;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Экран 1 -->
+  <section class="screen" id="screen1">
+    <h1>Аня ❤️</h1>
+    <p>
+      У меня есть для тебя одно очень важное приглашение...
+    </p>
+
+    <button class="main-btn" onclick="nextScreen(2)">
+      Открыть ✨
+    </button>
+  </section>
+
+  <!-- Экран 2 -->
+  <section class="screen hidden" id="screen2">
+    <h1>Признание 😌</h1>
+
+    <p>
+      Есть один человек,<br>
+      с которым я очень хочу провести вечер.
+    </p>
+
+    <button class="main-btn" onclick="nextScreen(3)">
+      Кто это? 👀
+    </button>
+  </section>
+
+  <!-- Экран 3 -->
+  <section class="screen hidden" id="screen3">
+    <h1>Кажется, это ты 🫶</h1>
+
+    <p>
+      Поэтому у меня вопрос:<br><br>
+      Пойдёшь со мной гулять?
+    </p>
+
+    <div>
+      <button class="yes-btn" onclick="accept()">
+        Да ❤️
+      </button>
+
+      <button class="no-btn" id="noBtn">
+        Нет
+      </button>
+    </div>
+
+    <div class="date">
+      25.06.26
+    </div>
+  </section>
+
+  <!-- Финал -->
+  <section class="screen hidden" id="screen4">
+    <div class="final">
+      УРААА ❤️
+    </div>
+
+    <p style="margin-top:25px">
+      Тогда 25.06.26 — официально<br>
+      день нашего гуляния ✨
+    </p>
+  </section>
+
+  <script>
+    function nextScreen(number){
+      document.querySelectorAll('.screen').forEach(s=>{
+        s.classList.add('hidden');
+      });
+
+      document.getElementById('screen'+number)
+        .classList.remove('hidden');
+    }
+
+    // Убегающая кнопка
+    const noBtn = document.getElementById('noBtn');
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    // Финал + сердечки
+    function accept(){
+      nextScreen(4);
+
+      for(let i=0;i<80;i++){
+        createHeart();
+      }
+    }
+
+    function createHeart(){
+      const heart = document.createElement('div');
+
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = window.innerHeight + 'px';
+
+      heart.style.animationDuration =
+        (Math.random()*3 + 2) + 's';
+
+      document.body.appendChild(heart);
+
+      setTimeout(()=>{
+        heart.remove();
+      },5000);
+    }
+  </script>
+
+</body>
+</html>
